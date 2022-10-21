@@ -10,6 +10,25 @@ const getGoals = asyncHandler(async (req, res) => {
     res.status(200).json(goals);
 });
 
+// example controller for manual handler
+const getUsers = async (req, res, next) => {
+    try {
+        if (!req.body.text) {
+            throw new Error('Please add text')
+        }
+
+        const newGoal = new Goal({ text });
+        const saveGoal = await newGoal.save();
+        if (saveGoal) {
+            res.status(200).json({ success: 'Goal created' });
+        }
+    } catch(error) {
+        console.log('error ==>', error);
+        res.status(400).json({ error: error.toString() });
+        next(error);
+    }
+}
+
 // @desc    Set goals
 // @route   SET /api/goals
 // @access  PRIVATE
