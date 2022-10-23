@@ -33,12 +33,31 @@ const getUsers = async (req, res, next) => {
 // @route   SET /api/goals
 // @access  PRIVATE
 const setGoal = asyncHandler(async (req, res) => {
-    if(!req.body.text){
+    if(!req.body.fname){
         res.status(400);
-        throw new Error('Please add a text field');
+        throw new Error('Please add value to fname field');
     }
+    
+    else if(!req.body.lname){
+        res.status(400);
+        throw new Error('Please add value to lname field');
+    }
+    
+    else if(!req.body.age){
+        res.status(400);
+        throw new Error('Please add value to age field');
+    }
+    
+    else if(!req.body.description){
+        res.status(400);
+        throw new Error('Please add value to description field');
+    }
+    
     const goal = await Goal.create({
-        text: req.body.text,
+        fname: req.body.fname,
+        lname: req.body.lname,
+        age: req.body.age,
+        description: req.body.description
     })
     res.status(200).json({ message: `Set goals` });
 });
